@@ -11,7 +11,11 @@ import com.vaadin.devday.service.customer.CustomerService;
 
 @Component
 public class CustomerServiceBean implements CustomerService {
-	private List<Customer> customers;
+	private List<Customer> customers = new ArrayList<Customer>(){
+		{
+			add(new Customer("bubu","gogu"));
+		}
+	};
 
 	private static final Object LOCK = new Object();
 

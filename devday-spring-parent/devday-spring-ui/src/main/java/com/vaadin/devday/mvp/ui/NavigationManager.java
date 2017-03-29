@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
+import com.vaadin.navigator.NavigationStateManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
@@ -38,7 +39,7 @@ public class NavigationManager {
 
 	@PostConstruct
 	protected void initialize() {
-		navigator = new Navigator(ui, new UriFragmentHandler(Page.getCurrent()), viewDisplay);
+		navigator = new Navigator(ui,  viewDisplay);
 		navigator.addProvider(viewProvider);
 	}
 
@@ -48,25 +49,13 @@ public class NavigationManager {
 
 	@EventListener
 	protected void onNavigationEvent(NavigationEvent event) {
-		navigator.navigateTo(event.getTarget().getId());
-	}
-
-	private class UriFragmentHandler extends UriFragmentManager {
-
-		public UriFragmentHandler(Page page) {
-			super(page);
-		}
-
-		@Override
-		public void uriFragmentChanged(UriFragmentChangedEvent event) {
-			Optional<Views> targetView = Arrays.asList(Views.values()).stream()
-					.filter(v -> v.getId().equals(getState())).findFirst();
-			if (targetView.isPresent()) {
-				navigateTo(targetView.get());
-			} else {
-				// fallback
-				navigateTo(Views.CUSTOMER);
-			}
+		Optional<Views> targetView = Arrays.asList(Views.values()).stream()
+				.filter(v -> v.getId().equals(event.getTarget().getId())).findFirst();
+		if (targetView.isPresent()) {
+			navigator.navigateTo(event.getTarget().getId());
+		} else {
+			// fallback
+			navigator.navigateTo(Views.CUSTOMER.getId());
 		}
 	}
 }
