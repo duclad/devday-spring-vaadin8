@@ -45,6 +45,9 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
+	public String getLastThenFirstName(){
+		return getLastName()+" "+getFirstName();
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

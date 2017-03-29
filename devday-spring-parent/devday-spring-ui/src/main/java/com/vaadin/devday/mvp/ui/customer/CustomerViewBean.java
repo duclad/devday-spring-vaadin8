@@ -46,14 +46,15 @@ public class CustomerViewBean extends AbstractView<CustomerViewPresenter> implem
 
     private Grid<Customer> buildCustomerTable() {
         Grid<Customer> grid = new Grid<>();
-
+        grid.setSizeFull();
+        grid.addColumn(Customer::getFirstName).setCaption("First Name");
+        grid.addColumn(Customer::getLastName).setCaption("Last Name");
         GridContextMenu<Customer> gridContextMenu = new GridContextMenu<>(grid);
         gridContextMenu.addGridBodyContextMenuListener(gridContextMenuOpenEvent -> {
-            gridContextMenu.addItem("Add", menuItem -> customerEventSource.publishEvent(new CustomerEvent(EventType.ADD, null)));
-            gridContextMenu.addItem("Edit", menuItem -> customerEventSource.publishEvent(new CustomerEvent(EventType.EDIT, null)));
-            gridContextMenu.addItem("Remove", menuItem -> customerEventSource.publishEvent(new CustomerEvent(EventType.REMOVE, null)));
+            gridContextMenu.addItem("Add",null);
+            gridContextMenu.addItem("Edit", null);
+            gridContextMenu.addItem("Remove", null);
         });
-
         return grid;
     }
 

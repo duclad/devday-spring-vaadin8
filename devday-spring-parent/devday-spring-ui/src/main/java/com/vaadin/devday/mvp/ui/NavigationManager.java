@@ -49,7 +49,7 @@ public class NavigationManager {
 
 	@EventListener
 	protected void onNavigationEvent(NavigationEvent event) {
-		Optional<Views> targetView = Arrays.asList(Views.values()).stream()
+		Optional<Views> targetView = Arrays.stream(Views.values())
 				.filter(v -> v.getId().equals(event.getTarget().getId())).findFirst();
 		if (targetView.isPresent()) {
 			navigator.navigateTo(event.getTarget().getId());
