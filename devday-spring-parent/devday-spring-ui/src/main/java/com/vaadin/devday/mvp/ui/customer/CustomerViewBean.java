@@ -51,6 +51,7 @@ public class CustomerViewBean extends AbstractView<CustomerViewPresenter> implem
         grid.addColumn(Customer::getLastName).setCaption("Last Name");
         GridContextMenu<Customer> gridContextMenu = new GridContextMenu<>(grid);
         gridContextMenu.addGridBodyContextMenuListener(gridContextMenuOpenEvent -> {
+            gridContextMenu.removeItems();
             gridContextMenu.addItem("Add",null);
             gridContextMenu.addItem("Edit", null);
             gridContextMenu.addItem("Remove", null);

@@ -1,5 +1,6 @@
 package com.vaadin.devday.mvp.ui;
 
+import com.vaadin.annotations.Widgetset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
@@ -12,6 +13,7 @@ import com.vaadin.ui.UI;
 @Push
 @SpringUI
 @Theme("valo")
+@Widgetset("com.vaadin.devday.DevdayWidgetSet")
 public class VaadinUI extends UI {
 
 	@Autowired
